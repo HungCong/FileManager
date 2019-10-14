@@ -1,0 +1,88 @@
+﻿
+@{
+    ViewBag.Title = "Hệ thống quản lý file";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var lsFile = (List<FileManager.Models.Entity.File>)ViewBag.ListFile;
+    var sess = (FileManager.Models.Entity.User)Session["Login"];
+}
+
+
+
+<section class="featured-courses vertical-column courses-wrap">
+
+    <div class="container">
+        @if (TempData["AlertMessage"] != null)
+        {
+            <div id="AlertBox" class="alert @TempData["AlertType"] hide" style="text-align:center;">
+                @TempData["AlertMessage"]
+            </div>
+        }
+        <section class="section-preview">
+            @using (Html.BeginForm("UploadFile", "Upload", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                <div class="row form-group">
+                    <div class="col col-md-12">
+                        <div class="input-group">
+                            @*<div class="input-group-btn">
+                                    <button class="btn btn-primary">
+                                        <i class="fa fa-file"></i>
+                                    </button>
+                                </div>*@
+                            <input type="file" id="file" name="file" class="form-control">
+                            <div class="input-group-btn">
+                                <button class="btn btn-primary" type="submit">
+                                    <i class="fa fa-upload"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </section>
+        <div class="row mx-m-25">
+            @foreach (var item in lsFile)
+            {
+                <div class="col-12 col-md-6 col-lg-4 px-25">
+                    <div class="course-content">
+                        <figure class="course-thumbnail">
+                            <a href="#"><img src="Asset/images/1.jpg" alt=""></a>
+                        </figure><!-- .course-thumbnail -->
+
+                        <div class="course-content-wrap">
+                            <header class="entry-header">
+                                <h2 class="entry-title"><a href="#">@item.FileName</a></h2>
+
+                                <div class="entry-meta flex align-items-center">
+                                    <div class="course-author"><a href="#">@sess.Username</a></div>
+
+                                    <div class="course-date">@item.CreatedDate.Value.ToString("MMMM dd, yyyy")</div>
+                                </div><!-- .course-date -->
+                            </header><!-- .entry-header -->
+
+                            <footer class="entry-footer flex justify-content-between align-items-center">
+                                <div class="course-cost">
+                                    $45 <span class="price-drop">$68</span>
+                                </div><!-- .course-cost -->
+
+                                <div class="course-ratings flex justify-content-end align-items-center">
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star-o"></span>
+
+                                    <span class="course-ratings-count">(4 votes)</span>
+                                </div><!-- .course-ratings -->
+                            </footer><!-- .entry-footer -->
+                        </div><!-- .course-content-wrap -->
+                    </div><!-- .course-content -->
+                </div><!-- .col -->
+            }
+
+            <div class="col-12 px-25 flex justify-content-center">
+                <a class="btn" href="#">view all courses</a>
+            </div><!-- .col -->
+        </div><!-- .row -->
+    </div><!-- .container -->
+</section><!-- .courses-wrap -->

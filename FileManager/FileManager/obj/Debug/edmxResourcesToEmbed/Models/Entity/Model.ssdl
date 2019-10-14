@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="filesystemModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="File">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FileName" Type="nvarchar" MaxLength="500" />
+    <Property Name="Extension" Type="nchar" MaxLength="100" />
+    <Property Name="Type" Type="nchar" MaxLength="100" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="ModifiedDate" Type="datetime" />
+    <Property Name="AccessedDate" Type="datetime" />
+    <Property Name="UserID" Type="bigint" />
+    <Property Name="Size" Type="float" />
+    <Property Name="ParentDirect" Type="int" />
+    <Property Name="Status" Type="bit" />
+  </EntityType>
+  <EntityType Name="FileDescription">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FileID" Type="bigint" />
+    <Property Name="FileType" Type="nchar" MaxLength="100" />
+    <Property Name="ParentDirect" Type="nvarchar" MaxLength="500" />
+  </EntityType>
+  <EntityType Name="Modify">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FileID" Type="bigint" />
+    <Property Name="UserID" Type="bigint" />
+    <Property Name="ModifiedDate" Type="datetime" />
+    <Property Name="Status" Type="bit" />
+  </EntityType>
+  <EntityType Name="Share">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FileID" Type="bigint" />
+    <Property Name="UserID" Type="bigint" />
+    <Property Name="ShareDescription" Type="nchar" MaxLength="500" />
+    <Property Name="Permission" Type="int" />
+    <Property Name="SharedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Username" Type="nchar" MaxLength="225" />
+    <Property Name="Password" Type="nchar" MaxLength="225" />
+    <Property Name="Email" Type="nchar" MaxLength="225" />
+    <Property Name="Permission" Type="int" />
+    <Property Name="status" Type="bit" />
+  </EntityType>
+  <EntityContainer Name="filesystemModelStoreContainer">
+    <EntitySet Name="File" EntityType="Self.File" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="FileDescription" EntityType="Self.FileDescription" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Modify" EntityType="Self.Modify" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Share" EntityType="Self.Share" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="filesystemModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="File">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FileName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Extension" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+    <Property Name="Type" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+    <Property Name="AccessedDate" Type="DateTime" Precision="3" />
+    <Property Name="UserID" Type="Int64" />
+    <Property Name="Size" Type="Double" />
+    <Property Name="ParentDirect" Type="Int32" />
+    <Property Name="Status" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="FileDescription">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FileID" Type="Int64" />
+    <Property Name="FileType" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+    <Property Name="ParentDirect" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Modify">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FileID" Type="Int64" />
+    <Property Name="UserID" Type="Int64" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+    <Property Name="Status" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="Share">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FileID" Type="Int64" />
+    <Property Name="UserID" Type="Int64" />
+    <Property Name="ShareDescription" Type="String" MaxLength="500" FixedLength="true" Unicode="true" />
+    <Property Name="Permission" Type="Int32" />
+    <Property Name="SharedDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Username" Type="String" MaxLength="225" FixedLength="true" Unicode="true" />
+    <Property Name="Password" Type="String" MaxLength="225" FixedLength="true" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="225" FixedLength="true" Unicode="true" />
+    <Property Name="Permission" Type="Int32" />
+    <Property Name="status" Type="Boolean" />
+  </EntityType>
+  <EntityContainer Name="FileManagerEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Files" EntityType="Self.File" />
+    <EntitySet Name="FileDescriptions" EntityType="Self.FileDescription" />
+    <EntitySet Name="Modifies" EntityType="Self.Modify" />
+    <EntitySet Name="Shares" EntityType="Self.Share" />
+    <EntitySet Name="Users" EntityType="Self.User" />
+  </EntityContainer>
+</Schema>

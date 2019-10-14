@@ -1,0 +1,26 @@
+1. opencv_annotation -i=/data/image_folder/ -a=/data/annotations.txt
+2. cd negativeImageDirectory
+3. find -name '*.jpg' > negatives.txt
+4. opencv_createsamples -img cropped00.jpg \
+	-bg negativeImageDirectory/negatives.txt \
+	-info sampleImageDirectory/cropped00.txt \
+	-num 128 -maxxangle 0.0 -maxyangle 0.0 \
+	-maxzangle 0.3 -bgcolor 255 -bgthresh 8 \
+	-w 48 -h 48
+5. cd sampleImageDirectory
+	cat cropped*.txt > positives.txt
+6. opencv_createsamples \
+	-info sampleImageDirectory/positives.txt \
+	-bg negativeImageDirectory/negatives.txt \
+	-vec cropped.vec \
+	-num 1920 -w 48 -h 48
+7. cd cd negativeImageDirectory
+	opencv_traincascade -data outputDirectory \
+	-vec cropped.vec \
+	-bg negativeImageDirectory/negatives.txt \
+	-numPos 1000 -numNeg 600 -numStages 10 \
+	-precalcValBufSize 1024 -precalcIdxBufSize 1024 \
+	-featureType HAAR \
+	-minHitRate 0.995 -maxFalseAlarmRate 0.5 \
+	-w 48 -h 48
+
