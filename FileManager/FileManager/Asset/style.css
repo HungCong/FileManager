@@ -2777,3 +2777,8 @@ input.file-path{
     width: 100%;
     height: 36px;
 }
+
+.btn:hover .btn:focus{
+  background-color: RoyalBlue;
+  cursor: pointer;
+}

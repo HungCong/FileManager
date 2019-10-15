@@ -13,8 +13,14 @@ namespace FileManager.Controllers
         public ActionResult Index()
         {
             var user = (User)Session["Login"];
-            ViewBag.ListFile = new FileBusiness().getFile(user.ID);
-            return View();
+            if (user == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }else
+            {
+                ViewBag.ListFile = new FileBusiness().getFile(user.ID);
+                return View();
+            }
         }
     }
 }

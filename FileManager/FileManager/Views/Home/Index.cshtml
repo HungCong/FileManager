@@ -23,11 +23,7 @@
                 <div class="row form-group">
                     <div class="col col-md-12">
                         <div class="input-group">
-                            @*<div class="input-group-btn">
-                                    <button class="btn btn-primary">
-                                        <i class="fa fa-file"></i>
-                                    </button>
-                                </div>*@
+                           
                             <input type="file" id="file" name="file" class="form-control">
                             <div class="input-group-btn">
                                 <button class="btn btn-primary" type="submit">
@@ -43,15 +39,34 @@
         <div class="row mx-m-25">
             @foreach (var item in lsFile)
             {
-                <div class="col-12 col-md-6 col-lg-4 px-25">
+                <div class="col-6 col-md-3 col-lg-4 px-25">
                     <div class="course-content">
                         <figure class="course-thumbnail">
-                            <a href="#"><img src="Asset/images/1.jpg" alt=""></a>
+                        @if (item.Extension.Trim() == ".docx")
+                        {
+                            <a href="#"><img style="width: 186px; height: 186px" src="Asset/images/word.png" alt=""></a>
+                        }
+                        else if (item.Extension.Trim() == ".txt")
+                        {
+                            <a href="#"><img style="width: 186px; height: 186px" src="Asset/images/text.png" alt=""></a>
+                        }
+                        else if (item.Extension.Trim() == ".pdf")
+                        {
+                            <a href="#"><img style="width: 186px; height: 186px" src="Asset/images/pdf.jpg" alt=""></a>
+                        }
+                        else if (item.Extension.Trim() == ".xlsx")
+                        {
+                            <a href="#"><img style="width: 186px; height: 186px" src="Asset/images/xlsx.jpg" alt=""></a>
+                        }
+                        else
+                        {
+                            <a href="#"><img style="width: 186px; height: 186px" src="Asset/images/not.png" alt=""></a>
+                        }
                         </figure><!-- .course-thumbnail -->
 
                         <div class="course-content-wrap">
                             <header class="entry-header">
-                                <h2 class="entry-title"><a href="#">@item.FileName</a></h2>
+                                <h2 class="entry-title" style="height:25px; overflow:hidden"><a href="#" title="@item.FileName">@item.FileName</a></h2>
 
                                 <div class="entry-meta flex align-items-center">
                                     <div class="course-author"><a href="#">@sess.Username</a></div>
@@ -62,17 +77,12 @@
 
                             <footer class="entry-footer flex justify-content-between align-items-center">
                                 <div class="course-cost">
-                                    $45 <span class="price-drop">$68</span>
+                                    <button class="btn" title="Tải về"><i class="fa fa-download"></i></button>
+                                    <button class="btn" title="Xóa file"><i class="fa fa-remove"></i></button>
                                 </div><!-- .course-cost -->
 
                                 <div class="course-ratings flex justify-content-end align-items-center">
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star-o"></span>
-
-                                    <span class="course-ratings-count">(4 votes)</span>
+                                    <button class="btn" title="Chia sẻ file"><i class="fa fa-share" style="padding: 3px"></i>Share file</button>
                                 </div><!-- .course-ratings -->
                             </footer><!-- .entry-footer -->
                         </div><!-- .course-content-wrap -->
