@@ -77,8 +77,8 @@
 
                             <footer class="entry-footer flex justify-content-between align-items-center">
                                 <div class="course-cost">
-                                    <button class="btn" title="Tải về"><i class="fa fa-download"></i></button>
-                                    <button class="btn" title="Xóa file"><i class="fa fa-remove"></i></button>
+                                    <a class="downloadFile" href="/Upload/downloadFile?fileID=@item.ID" data-file_id="@item.ID" title="Tải về"><i class="fa fa-download"></i></a>
+                                    <button class="btn btn-remove" data-file_id="@item.ID" title="Xóa file"><i class="fa fa-remove"></i></button>
                                 </div><!-- .course-cost -->
 
                                 <div class="course-ratings flex justify-content-end align-items-center">
