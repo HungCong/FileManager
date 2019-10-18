@@ -205,6 +205,8 @@
     </Compile>
     <Compile Include="Models\Business\FileBusiness.cs" />
     <Compile Include="Models\Business\UserBusiness.cs" />
+    <Compile Include="Models\DTO\FileDTO.cs" />
+    <Compile Include="Models\DTO\MD5.cs" />
     <Compile Include="Models\Entity\File.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -508,11 +510,11 @@
     <Content Include="Views\Login\ForgetPass.cshtml" />
     <Content Include="Views\Login\Register.cshtml" />
     <Content Include="Views\Login\Register_Success.cshtml" />
+    <Content Include="Views\Upload\shareFile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="UploadedFiles\" />
-    <Folder Include="Views\Upload\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

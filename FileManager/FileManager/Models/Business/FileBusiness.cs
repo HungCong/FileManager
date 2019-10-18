@@ -1,4 +1,5 @@
-﻿using FileManager.Models.Entity;
+﻿using FileManager.Models.DTO;
+using FileManager.Models.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,9 +37,38 @@ namespace FileManager.Models.Business
             }
         }
 
-        public List<File> getFile(long UserId)
+        public List<FileDTO> getFile(long UserId)
         {
-            return db.Files.Where(x => x.UserID == UserId).OrderByDescending(x => x.ID).ToList();
+            var query = from f in db.Files
+                        join fd in db.FileDescriptions on f.ID equals fd.FileID
+                        where f.UserID == UserId
+                        select new FileDTO()
+                        {
+                            ID = f.ID,
+                            FileName = f.FileName,
+                            CreatedDate = f.CreatedDate,
+                            Extension = f.Extension,
+                            ParentDirect = fd.ParentDirect
+                        };
+            query.OrderByDescending(x => x.ID);
+            return query.ToList();
+        }
+
+        //lấy thông tin file chia sẻ
+        public FileDTO getFileShare(long id)
+        {
+            var query = from f in db.Files
+                        join user in db.Users on f.UserID equals user.ID
+                        where f.ID == id
+                        select new FileDTO()
+                        {
+                            ID = f.ID,
+                            FileName = f.FileName,
+                            CreatedDate = f.CreatedDate,
+                            Extension = f.Extension,
+                            Username = user.Username
+                        };
+            return query.Single(x => x.ID == id);
         }
         
         //Xóa File
@@ -62,6 +92,47 @@ namespace FileManager.Models.Business
         public File FindFile(long ID)
         {
             return db.Files.Find(ID);
+        }
+
+        //Lấy ID cao nhất
+        public long getIDMax()
+        {
+            return db.Files.Select(x => x.ID).Max();
+        }
+
+        //thêm file trong file description
+        public bool AddFileDescription(FileDescription entity)
+        {
+            try
+            {
+                FileDescription file = new FileDescription();
+                file.FileID = entity.FileID;
+                file.FileType = "file";
+                file.ParentDirect = entity.ParentDirect;
+                db.FileDescriptions.Add(file);
+                db.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        //Xóa file trong bảng file descript
+        public bool DeleteFileDescription(long fileId)
+        {
+            try
+            {
+                var file = db.FileDescriptions.Single(x => x.FileID == fileId);
+                db.FileDescriptions.Remove(file);
+                db.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

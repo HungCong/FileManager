@@ -2,7 +2,7 @@
 @{
     ViewBag.Title = "Hệ thống quản lý file";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    var lsFile = (List<FileManager.Models.Entity.File>)ViewBag.ListFile;
+    var lsFile = (List<FileManager.Models.DTO.FileDTO>)ViewBag.ListFile;
     var sess = (FileManager.Models.Entity.User)Session["Login"];
 }
 
@@ -78,11 +78,17 @@
                             <footer class="entry-footer flex justify-content-between align-items-center">
                                 <div class="course-cost">
                                     <a class="downloadFile" href="/Upload/downloadFile?fileID=@item.ID" data-file_id="@item.ID" title="Tải về"><i class="fa fa-download"></i></a>
-                                    <button class="btn btn-remove" data-file_id="@item.ID" title="Xóa file"><i class="fa fa-remove"></i></button>
+                                    <button class="btn btn-remove" data-file_id="@item.ID" title="Xóa file"><i class="fa fa-trash-o"></i></button>
                                 </div><!-- .course-cost -->
 
                                 <div class="course-ratings flex justify-content-end align-items-center">
-                                    <button class="btn" title="Chia sẻ file"><i class="fa fa-share" style="padding: 3px"></i>Share file</button>
+                                    <button class="btn" title="Click để lấy link file" onclick="myFunction(@item.ID)"><i class="fa fa-share" style="padding: 3px"></i>Chia sẻ file</button>
+                                </div><!-- .course-ratings -->
+                            </footer><!-- .entry-footer -->
+
+                            <footer class="entry-footer flex justify-content-between align-items-center" >
+                                <div class="course-ratings" style="width:100%">
+                                    <input type="text" class="form-control" id="LinkFile_@item.ID" value="http://localhost:59910/Upload/shareFile?path=@item.ParentDirect"  style="width:100%; display:none"/>
                                 </div><!-- .course-ratings -->
                             </footer><!-- .entry-footer -->
                         </div><!-- .course-content-wrap -->
@@ -96,3 +102,15 @@
         </div><!-- .row -->
     </div><!-- .container -->
 </section><!-- .courses-wrap -->
+@section jsGender{
+    <script type='text/javascript'>
+        function myFunction(ID) {
+            var copyText = document.getElementById("LinkFile_" + ID);
+            copyText.select();
+            copyText.setSelectionRange(0, 99999)
+            document.execCommand("copy");
+            $('#LinkFile_' + ID).css("display", "inline");
+           
+        }
+    </script>
+}

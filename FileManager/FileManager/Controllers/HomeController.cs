@@ -1,4 +1,5 @@
 ﻿using FileManager.Models.Business;
+using FileManager.Models.DTO;
 using FileManager.Models.Entity;
 using System;
 using System.Collections.Generic;
@@ -18,7 +19,12 @@ namespace FileManager.Controllers
                 return RedirectToAction("Index", "Login");
             }else
             {
-                ViewBag.ListFile = new FileBusiness().getFile(user.ID);
+                var lstFile = new FileBusiness().getFile(user.ID);
+                foreach(var item in lstFile)
+                {
+                    item.ParentDirect = new MD5().Encrypt_MD5(item.ID.ToString());
+                }
+                ViewBag.ListFile = lstFile;
                 return View();
             }
         }

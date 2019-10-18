@@ -36,6 +36,13 @@ namespace FileManager.Controllers
             return Redirect("/");
         }
 
+        //Đăng xuất
+        public ActionResult Logout()
+        {
+            Session["Login"] = null;
+            return RedirectToAction("Index", "Login");
+        }
+
         public ActionResult ForgetPass()
         {
             return View();

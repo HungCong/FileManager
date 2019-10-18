@@ -1,0 +1,75 @@
+﻿
+@{
+    ViewBag.Title = "Chia sẻ file";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var item = (FileManager.Models.DTO.FileDTO)ViewBag.FileShare;
+}
+
+<section class="featured-courses vertical-column courses-wrap">
+
+    <div class="container">
+        <div class="row mx-m-25">
+           
+                <div class="col-6 col-md-3 col-lg-4 px-25">
+                    <div class="course-content">
+                        <figure class="course-thumbnail">
+                            @if (item.Extension.Trim() == ".docx")
+                            {
+                                <a href="#"><img style="width: 186px; height: 186px" src="~/Asset/images/word.png" alt=""></a>
+                            }
+                            else if (item.Extension.Trim() == ".txt")
+                            {
+                                <a href="#"><img style="width: 186px; height: 186px" src="~/Asset/images/text.png" alt=""></a>
+                            }
+                            else if (item.Extension.Trim() == ".pdf")
+                            {
+                                <a href="#"><img style="width: 186px; height: 186px" src="~/Asset/images/pdf.jpg" alt=""></a>
+                            }
+                            else if (item.Extension.Trim() == ".xlsx")
+                            {
+                                <a href="#"><img style="width: 186px; height: 186px" src="~/Asset/images/xlsx.jpg" alt=""></a>
+                            }
+                            else
+                            {
+                                <a href="#"><img style="width: 186px; height: 186px" src="~/Asset/images/not.png" alt=""></a>
+                            }
+                        </figure><!-- .course-thumbnail -->
+
+                        <div class="course-content-wrap">
+                            <header class="entry-header">
+                                <h2 class="entry-title" style="height:25px; overflow:hidden"><a href="#" title="@item.FileName">@item.FileName</a></h2>
+
+                                <div class="entry-meta flex align-items-center">
+                                    <div class="course-author"><a href="#">@item.Username</a></div>
+
+                                    <div class="course-date">@item.CreatedDate.Value.ToString("MMMM dd, yyyy")</div>
+                                </div><!-- .course-date -->
+                            </header><!-- .entry-header -->
+
+                            <footer class="entry-footer flex justify-content-between align-items-center">
+                                <div class="course-cost">
+                                    <a class="downloadFile" href="/Upload/downloadFile?fileID=@item.ID" data-file_id="@item.ID" title="Tải về"><i class="fa fa-download"></i></a>
+                                    @*<button class="btn btn-remove" data-file_id="@item.ID" title="Xóa file"><i class="fa fa-recycle"></i></button>*@
+                                </div><!-- .course-cost -->
+
+                                @*<div class="course-ratings flex justify-content-end align-items-center">
+                                    <button class="btn" title="Chia sẻ file" onclick="myFunction(@item.ID)"><i class="fa fa-share" style="padding: 3px"></i>Chia sẻ file</button>
+                                </div>*@<!-- .course-ratings -->
+                            </footer><!-- .entry-footer -->
+
+                            @*<footer class="entry-footer flex justify-content-between align-items-center">
+                                <div class="course-ratings" style="width:100%">
+                                    <input type="text" class="form-control" id="LinkFile_@item.ID" value="http://localhost:59910/share-file?path=@item.ParentDirect" style="width:100%; display:none" />
+                                </div><!-- .course-ratings -->
+                            </footer><!-- .entry-footer -->*@
+                        </div><!-- .course-content-wrap -->
+                    </div><!-- .course-content -->
+                </div><!-- .col -->
+
+            <div class="col-12 px-25 flex justify-content-center">
+                <a class="btn" href="#">view all courses</a>
+            </div><!-- .col -->
+        </div><!-- .row -->
+    </div><!-- .container -->
+</section><!-- .courses-wrap -->
+

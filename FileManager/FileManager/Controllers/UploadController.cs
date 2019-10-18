@@ -1,4 +1,5 @@
 ﻿using FileManager.Models.Business;
+using FileManager.Models.DTO;
 using FileManager.Models.Entity;
 using System;
 using System.Collections.Generic;
@@ -34,11 +35,28 @@ namespace FileManager.Controllers
                 model.UserID = user.ID;
                 model.Size = file.ContentLength;
                 model.ParentDirect = 1;
+
+               
                 var res = new FileBusiness().addFile(model, user.ID);
                 if (res)
                 {
-                    SetAlert("File uploaded thành công", "success");
-                    return RedirectToAction("Index", "Home");
+                    //add data in fileDescription table
+                    FileDescription fd = new FileDescription();
+                    fd.FileID = new FileBusiness().getIDMax();
+                    fd.ParentDirect = "/UploadedFiles/" + _FileName;
+
+                    var resFileDs = new FileBusiness().AddFileDescription(fd);
+                    if (resFileDs)
+                    {
+                        SetAlert("File uploaded thành công", "success");
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else
+                    {
+                        SetAlert("File upload bị lỗi, Kiểm tra lại!!", "error");
+                        return RedirectToAction("Index", "Home");
+                    }
+                    
                 }
                 else
                 {
@@ -65,7 +83,8 @@ namespace FileManager.Controllers
             {
                 FILE.Delete();
                 var res = new FileBusiness().deleteFile(fileID);
-                if(res)
+                var resFileD = new FileBusiness().DeleteFileDescription(fileID);
+                if(res && resFileD)
                     return Json(new
                     {
                         status = true
@@ -98,6 +117,22 @@ namespace FileManager.Controllers
 
             byte[] fileBytes = GetBytesFromFile(path);
             return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, file.FileName + file.Extension.Trim());
+        }
+
+        //Chia sẻ file
+        public ActionResult shareFile(string path)
+        {
+            var user = (User)Session["Login"];
+            if (user == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+            else
+            {
+                long fileID = long.Parse(new MD5().Decrypt_MD5(path));
+                ViewBag.FileShare = new FileBusiness().getFileShare(fileID);
+                return View();
+            }
         }
 
         public byte[] GetBytesFromFile(string fullFilePath)
