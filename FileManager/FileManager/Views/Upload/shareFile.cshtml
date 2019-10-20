@@ -3,6 +3,7 @@
     ViewBag.Title = "Chia sẻ file";
     Layout = "~/Views/Shared/_Layout.cshtml";
     var item = (FileManager.Models.DTO.FileDTO)ViewBag.FileShare;
+    var sess = (FileManager.Models.Entity.User)Session["Login"];
 }
 
 <section class="featured-courses vertical-column courses-wrap">

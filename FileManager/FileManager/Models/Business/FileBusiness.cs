@@ -134,5 +134,11 @@ namespace FileManager.Models.Business
                 return false;
             }
         }
+
+        //Tìm kiếm file
+        public List<string> searchFile(string keyword, User user)
+        {
+            return db.Files.Where(x => x.FileName.Contains(keyword) && x.UserID == user.ID).Select(x => x.FileName).ToList();
+        }
     }
 }

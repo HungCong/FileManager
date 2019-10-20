@@ -24,10 +24,13 @@
     <!-- themify-icons CSS -->
     <link rel="stylesheet" href="~/Asset/css/themify-icons.css">
 
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"> 
+    @*<link href="~/Asset/css/autocomplete.css" rel="stylesheet" />*@
     <!-- Swiper CSS -->
     <link rel="stylesheet" href="~/Asset/css/swiper.min.css">
     <link href="~/Asset/css/PNotifyBrightTheme.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/styles/metro/notify-metro.css" />
+   
     <!-- Styles -->
     <link rel="stylesheet" href="~/Asset/style.css">
 </head>
@@ -49,8 +52,8 @@
 
                         <div class="col-12 col-lg-6 d-flex flex-wrap justify-content-center justify-content-lg-end align-items-center">
                             <div class="header-bar-search">
-                                <form class="flex align-items-stretch">
-                                    <input type="search" placeholder="Tìm kiếm file...">
+                                <form action="/Home/Search" class="flex align-items-stretch" method="get">
+                                    <input type="search" placeholder="Tìm kiếm file..." name="Keyword" id="Keyword">
                                     <button type="submit" value="" class="flex justify-content-center align-items-center"><i class="fa fa-search"></i></button>
                                 </form>
                             </div> @*.header-bar-search*@
@@ -147,18 +150,25 @@
     </footer><!-- .site-footer -->
     <!-- Jquery JS-->
     <script src="~/Asset/vendor/jquery-3.2.1.min.js"></script>
-
     <script type='text/javascript' src='~/Asset/js/jquery.js'></script>
+
+    @*<script src="~/Asset/js/autocomplete.js"></script>*@
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>  
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script> 
+
+   
     <script type='text/javascript' src='~/Asset/js/swiper.min.js'></script>
     <script type='text/javascript' src='~/Asset/js/masonry.pkgd.min.js'></script>
     <script type='text/javascript' src='~/Asset/js/jquery.collapsible.min.js'></script>
     <script type='text/javascript' src='~/Asset/js/custom.js'></script>
+    
+   
     <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
     <script src="~/Asset/notify/notify.js"></script>
     <script src="~/Asset/notify/PNotify.js"></script>
 
     <script src="~/Asset/js/tool.js"></script>
-
+    <script src="~/Asset/js/search.js"></script>
     @RenderSection("jsGender", required: false)
 </body>
 </html>

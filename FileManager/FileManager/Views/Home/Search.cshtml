@@ -1,11 +1,10 @@
 ﻿
 @{
-    ViewBag.Title = "Hệ thống quản lý file";
+    ViewBag.Title = "Tìm kiếm file";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    var lsFile = (List<FileManager.Models.DTO.FileDTO>)ViewBag.ListFile;
+    var lsFile = (List<FileManager.Models.DTO.FileDTO>)ViewBag.FileSearch;
     var sess = (FileManager.Models.Entity.User)Session["Login"];
 }
-
 
 
 <section class="featured-courses vertical-column courses-wrap">
@@ -23,7 +22,7 @@
                 <div class="row form-group">
                     <div class="col col-md-12">
                         <div class="input-group">
-                           
+
                             <input type="file" id="file" name="file" class="form-control">
                             <div class="input-group-btn">
                                 <button class="btn btn-primary" type="submit">
@@ -42,26 +41,26 @@
                 <div class="col-6 col-md-3 col-lg-4 px-25">
                     <div class="course-content">
                         <figure class="course-thumbnail">
-                        @if (item.Extension.Trim() == ".docx")
-                        {
-                            <a href="#"><img style="width: 186px; height: 186px" src="~/Asset/images/word.png" alt=""></a>
-                        }
-                        else if (item.Extension.Trim() == ".txt")
-                        {
-                            <a href="#"><img style="width: 186px; height: 186px" src="~/Asset/images/text.png" alt=""></a>
-                        }
-                        else if (item.Extension.Trim() == ".pdf")
-                        {
-                            <a href="#"><img style="width: 186px; height: 186px" src="~/Asset/images/pdf.jpg" alt=""></a>
-                        }
-                        else if (item.Extension.Trim() == ".xlsx")
-                        {
-                            <a href="#"><img style="width: 186px; height: 186px" src="~/Asset/images/xlsx.jpg" alt=""></a>
-                        }
-                        else
-                        {
-                            <a href="#"><img style="width: 186px; height: 186px" src="~/Asset/images/not.png" alt=""></a>
-                        }
+                            @if (item.Extension.Trim() == ".docx")
+                            {
+                                <a href="#"><img style="width: 186px; height: 186px" src="~/Asset/images/word.png" alt=""></a>
+                            }
+                            else if (item.Extension.Trim() == ".txt")
+                            {
+                                <a href="#"><img style="width: 186px; height: 186px" src="~/Asset/images/text.png" alt=""></a>
+                            }
+                            else if (item.Extension.Trim() == ".pdf")
+                            {
+                                <a href="#"><img style="width: 186px; height: 186px" src="~/Asset/images/pdf.jpg" alt=""></a>
+                            }
+                            else if (item.Extension.Trim() == ".xlsx")
+                            {
+                                <a href="#"><img style="width: 186px; height: 186px" src="~/Asset/images/xlsx.jpg" alt=""></a>
+                            }
+                            else
+                            {
+                                <a href="#"><img style="width: 186px; height: 186px" src="~/Asset/images/not.png" alt=""></a>
+                            }
                         </figure><!-- .course-thumbnail -->
 
                         <div class="course-content-wrap">
@@ -86,22 +85,19 @@
                                 </div><!-- .course-ratings -->
                             </footer><!-- .entry-footer -->
 
-                            <footer class="entry-footer flex justify-content-between align-items-center" >
+                            <footer class="entry-footer flex justify-content-between align-items-center">
                                 <div class="course-ratings" style="width:100%">
-                                    <input type="text" class="form-control" id="LinkFile_@item.ID" value="http://localhost:59910/Upload/shareFile?path=@item.ParentDirect"  style="width:100%; display:none"/>
+                                    <input type="text" class="form-control" id="LinkFile_@item.ID" value="http://localhost:59910/Upload/shareFile?path=@item.ParentDirect" style="width:100%; display:none" />
                                 </div><!-- .course-ratings -->
                             </footer><!-- .entry-footer -->
                         </div><!-- .course-content-wrap -->
                     </div><!-- .course-content -->
                 </div><!-- .col -->
-                
             }
-            
-      
+
             <div class="col-12 px-25 flex justify-content-center">
-                <a class="btn" href="#">Xem tất cả</a>
+                <a class="btn" href="#">view all courses</a>
             </div><!-- .col -->
-            
         </div><!-- .row -->
     </div><!-- .container -->
 </section><!-- .courses-wrap -->
@@ -113,7 +109,8 @@
             copyText.setSelectionRange(0, 99999)
             document.execCommand("copy");
             $('#LinkFile_' + ID).css("display", "inline");
-           
+
         }
     </script>
 }
+

@@ -28,5 +28,43 @@ namespace FileManager.Controllers
                 return View();
             }
         }
+
+        //Tìm kiếm file
+        [HttpPost]
+        public JsonResult SearchFile(string q)
+        {
+            var user = (User)Session["Login"];
+            var data = new FileBusiness().searchFile(q, user);
+            return Json(new
+            {
+                data = data,
+                status = true
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult Search(string Keyword)
+        {
+            string[] key = Keyword.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries);
+            FileManagerEntities db = new FileManagerEntities();
+
+            var query = new List<FileDTO>();
+            foreach(var item in key)
+            {
+                query =    (from f in db.Files
+                            join fd in db.FileDescriptions on f.ID equals fd.FileID
+                            where f.FileName.Contains(Keyword)
+                            select new FileDTO()
+                            {
+                                ID = f.ID,
+                                FileName = f.FileName,
+                                CreatedDate = f.CreatedDate,
+                                Extension = f.Extension,
+                                ParentDirect = fd.ParentDirect
+                            }).ToList();
+            }
+            
+            ViewBag.FileSearch = query;
+            return View();
+        }
     }
 }

@@ -241,12 +241,14 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Asset\css\autocomplete.css" />
     <Content Include="Asset\css\bootstrap.css" />
     <Content Include="Asset\css\bootstrap.min.css" />
     <Content Include="Asset\css\elegant-fonts.css" />
     <Content Include="Asset\css\font-awesome.css" />
     <Content Include="Asset\css\font-awesome.min.css" />
     <Content Include="Asset\css\font-face.css" />
+    <Content Include="Asset\css\jquery-ui.css" />
     <Content Include="Asset\css\PNotifyBrightTheme.css" />
     <Content Include="Asset\css\style.css" />
     <Content Include="Asset\css\swiper.css" />
@@ -326,13 +328,16 @@
     <Content Include="Asset\images\video-screenshot.png" />
     <Content Include="Asset\images\word.png" />
     <Content Include="Asset\images\xlsx.jpg" />
+    <Content Include="Asset\js\autocomplete.js" />
     <Content Include="Asset\js\custom.js" />
+    <Content Include="Asset\js\jquery-ui.js" />
     <Content Include="Asset\js\jquery.collapsible.min.js" />
     <Content Include="Asset\js\jquery.js" />
     <Content Include="Asset\js\login.js" />
     <Content Include="Asset\js\login.js" />
     <Content Include="Asset\js\main.js" />
     <Content Include="Asset\js\masonry.pkgd.min.js" />
+    <Content Include="Asset\js\search.js" />
     <Content Include="Asset\js\swiper.js" />
     <Content Include="Asset\js\swiper.min.js" />
     <Content Include="Asset\js\tool.js" />
@@ -511,6 +516,7 @@
     <Content Include="Views\Login\Register.cshtml" />
     <Content Include="Views\Login\Register_Success.cshtml" />
     <Content Include="Views\Upload\shareFile.cshtml" />
+    <Content Include="Views\Home\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
