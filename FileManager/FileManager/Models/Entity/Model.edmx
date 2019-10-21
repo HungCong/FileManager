@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="filesystemModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="filesystemModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="File">
           <Key>
             <PropertyRef Name="ID" />
@@ -20,6 +20,7 @@
           <Property Name="Size" Type="float" />
           <Property Name="ParentDirect" Type="int" />
           <Property Name="Status" Type="bit" />
+          <Property Name="ContentFile" Type="ntext" />
         </EntityType>
         <EntityType Name="FileDescription">
           <Key>
@@ -69,8 +70,7 @@
           <EntitySet Name="Share" EntityType="Self.Share" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="filesystemModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -89,6 +89,7 @@
           <Property Name="Size" Type="Double" />
           <Property Name="ParentDirect" Type="Int32" />
           <Property Name="Status" Type="Boolean" />
+          <Property Name="ContentFile" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="FileDescription">
           <Key>
@@ -147,6 +148,7 @@
           <EntitySetMapping Name="Files">
             <EntityTypeMapping TypeName="filesystemModel.File">
               <MappingFragment StoreEntitySet="File">
+                <ScalarProperty Name="ContentFile" ColumnName="ContentFile" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="FileName" ColumnName="FileName" />
                 <ScalarProperty Name="Extension" ColumnName="Extension" />

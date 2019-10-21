@@ -21,8 +21,13 @@ namespace FileManager.Controllers
         [HttpPost]
         public ActionResult UploadFile(HttpPostedFileBase file)
         {
-            if( file != null)
+            if(file.ContentLength > 10485760) //Kích thước file k quá 10MB = 10.240 kB = 10.485.760 Byte
             {
+                SetAlert("File upload lớn hơn 10 MB, Kiểm tra lại!!", "error");
+                return RedirectToAction("Index", "Home");
+            }
+            else if( file != null)
+            {                
                 var user = (User)Session["Login"];
                 string _FileName = Path.GetFileName(file.FileName);
                 string _path = Path.Combine(Server.MapPath("~/UploadedFiles/"), _FileName);
@@ -35,7 +40,7 @@ namespace FileManager.Controllers
                 model.UserID = user.ID;
                 model.Size = file.ContentLength;
                 model.ParentDirect = 1;
-
+                model.ContentFile = Convert.ToBase64String(GetBytesFromFile(_path));
                
                 var res = new FileBusiness().addFile(model, user.ID);
                 if (res)
@@ -113,9 +118,9 @@ namespace FileManager.Controllers
             var file = new FileBusiness().FindFile(fileID);
 
             //string path = Path.Combine(Server.MapPath("~/UploadedFiles/"), file.FileName + file.Extension.Trim());
-            string path = Server.MapPath(@"~/UploadedFiles/" + file.FileName + file.Extension.Trim());
+            //string path = Server.MapPath(@"~/UploadedFiles/" + file.FileName + file.Extension.Trim());
 
-            byte[] fileBytes = GetBytesFromFile(path);
+            byte[] fileBytes = Convert.FromBase64String(file.ContentFile);
             return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, file.FileName + file.Extension.Trim());
         }
 
@@ -133,6 +138,14 @@ namespace FileManager.Controllers
                 ViewBag.FileShare = new FileBusiness().getFileShare(fileID);
                 return View();
             }
+        }
+
+        //Mở file pdf
+        public ActionResult OpenFilePdf(string filename)
+        {
+            var file = new FileBusiness().GetFileByName(filename);
+            byte[] FileBytes = Convert.FromBase64String(file.ContentFile);
+            return File(FileBytes, "application/pdf");
         }
 
         public byte[] GetBytesFromFile(string fullFilePath)

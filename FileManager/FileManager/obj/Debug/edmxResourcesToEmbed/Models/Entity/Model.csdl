@@ -15,6 +15,7 @@
     <Property Name="Size" Type="Double" />
     <Property Name="ParentDirect" Type="Int32" />
     <Property Name="Status" Type="Boolean" />
+    <Property Name="ContentFile" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="FileDescription">
     <Key>

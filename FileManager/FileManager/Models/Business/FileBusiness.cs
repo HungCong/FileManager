@@ -25,6 +25,7 @@ namespace FileManager.Models.Business
                 file.UserID = userId;
                 file.Size = entity.Size;
                 file.ParentDirect = entity.ParentDirect;
+                file.ContentFile = entity.ContentFile;
                 file.Status = true;
 
                 db.Files.Add(file);
@@ -42,6 +43,7 @@ namespace FileManager.Models.Business
             var query = from f in db.Files
                         join fd in db.FileDescriptions on f.ID equals fd.FileID
                         where f.UserID == UserId
+                        orderby f.ID descending
                         select new FileDTO()
                         {
                             ID = f.ID,
@@ -50,7 +52,6 @@ namespace FileManager.Models.Business
                             Extension = f.Extension,
                             ParentDirect = fd.ParentDirect
                         };
-            query.OrderByDescending(x => x.ID);
             return query.ToList();
         }
 
@@ -88,6 +89,12 @@ namespace FileManager.Models.Business
                 return false;
             }
         }
+
+        public File GetFileByName(string filename)
+        {
+            return db.Files.Single(x => x.FileName == filename);
+        }
+
 
         public File FindFile(long ID)
         {

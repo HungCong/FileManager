@@ -15,6 +15,7 @@
     <Property Name="Size" Type="float" />
     <Property Name="ParentDirect" Type="int" />
     <Property Name="Status" Type="bit" />
+    <Property Name="ContentFile" Type="ntext" />
   </EntityType>
   <EntityType Name="FileDescription">
     <Key>

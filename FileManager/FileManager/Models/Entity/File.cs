@@ -25,5 +25,6 @@ namespace FileManager.Models.Entity
         public Nullable<double> Size { get; set; }
         public Nullable<int> ParentDirect { get; set; }
         public Nullable<bool> Status { get; set; }
+        public string ContentFile { get; set; }
     }
 }

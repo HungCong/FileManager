@@ -4,6 +4,7 @@
     <EntitySetMapping Name="Files">
       <EntityTypeMapping TypeName="filesystemModel.File">
         <MappingFragment StoreEntitySet="File">
+          <ScalarProperty Name="ContentFile" ColumnName="ContentFile" />
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="FileName" ColumnName="FileName" />
           <ScalarProperty Name="Extension" ColumnName="Extension" />
